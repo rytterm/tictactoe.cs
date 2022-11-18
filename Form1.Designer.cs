@@ -1,0 +1,180 @@
+﻿namespace winForms_TicTacToe
+{
+    partial class tictactoe_game
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.MainGroupBox = new System.Windows.Forms.GroupBox();
+            this.button_9 = new System.Windows.Forms.Button();
+            this.button_8 = new System.Windows.Forms.Button();
+            this.button_7 = new System.Windows.Forms.Button();
+            this.button_6 = new System.Windows.Forms.Button();
+            this.button_5 = new System.Windows.Forms.Button();
+            this.button_4 = new System.Windows.Forms.Button();
+            this.button_3 = new System.Windows.Forms.Button();
+            this.button_2 = new System.Windows.Forms.Button();
+            this.button_1 = new System.Windows.Forms.Button();
+            this.MainGroupBox.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // MainGroupBox
+            // 
+            this.MainGroupBox.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.MainGroupBox.Controls.Add(this.button_9);
+            this.MainGroupBox.Controls.Add(this.button_8);
+            this.MainGroupBox.Controls.Add(this.button_7);
+            this.MainGroupBox.Controls.Add(this.button_6);
+            this.MainGroupBox.Controls.Add(this.button_5);
+            this.MainGroupBox.Controls.Add(this.button_4);
+            this.MainGroupBox.Controls.Add(this.button_3);
+            this.MainGroupBox.Controls.Add(this.button_2);
+            this.MainGroupBox.Controls.Add(this.button_1);
+            this.MainGroupBox.Location = new System.Drawing.Point(12, 12);
+            this.MainGroupBox.Name = "MainGroupBox";
+            this.MainGroupBox.Size = new System.Drawing.Size(397, 362);
+            this.MainGroupBox.TabIndex = 2;
+            this.MainGroupBox.TabStop = false;
+            this.MainGroupBox.Text = "Player: X";
+            // 
+            // button_9
+            // 
+            this.button_9.Location = new System.Drawing.Point(284, 259);
+            this.button_9.Name = "button_9";
+            this.button_9.Size = new System.Drawing.Size(107, 85);
+            this.button_9.TabIndex = 8;
+            this.button_9.Text = "9";
+            this.button_9.UseVisualStyleBackColor = true;
+            this.button_9.Click += new System.EventHandler(this.button_9_Click);
+            // 
+            // button_8
+            // 
+            this.button_8.Location = new System.Drawing.Point(145, 259);
+            this.button_8.Name = "button_8";
+            this.button_8.Size = new System.Drawing.Size(107, 85);
+            this.button_8.TabIndex = 7;
+            this.button_8.Text = "8";
+            this.button_8.UseVisualStyleBackColor = true;
+            this.button_8.Click += new System.EventHandler(this.button_8_Click);
+            // 
+            // button_7
+            // 
+            this.button_7.Location = new System.Drawing.Point(6, 259);
+            this.button_7.Name = "button_7";
+            this.button_7.Size = new System.Drawing.Size(107, 85);
+            this.button_7.TabIndex = 6;
+            this.button_7.Text = "7";
+            this.button_7.UseVisualStyleBackColor = true;
+            this.button_7.Click += new System.EventHandler(this.button_7_Click);
+            // 
+            // button_6
+            // 
+            this.button_6.Location = new System.Drawing.Point(284, 137);
+            this.button_6.Name = "button_6";
+            this.button_6.Size = new System.Drawing.Size(107, 85);
+            this.button_6.TabIndex = 5;
+            this.button_6.Text = "6";
+            this.button_6.UseVisualStyleBackColor = true;
+            this.button_6.Click += new System.EventHandler(this.button_6_Click);
+            // 
+            // button_5
+            // 
+            this.button_5.Location = new System.Drawing.Point(145, 137);
+            this.button_5.Name = "button_5";
+            this.button_5.Size = new System.Drawing.Size(107, 85);
+            this.button_5.TabIndex = 4;
+            this.button_5.Text = "5";
+            this.button_5.UseVisualStyleBackColor = true;
+            this.button_5.Click += new System.EventHandler(this.button_5_Click);
+            // 
+            // button_4
+            // 
+            this.button_4.Location = new System.Drawing.Point(6, 137);
+            this.button_4.Name = "button_4";
+            this.button_4.Size = new System.Drawing.Size(107, 85);
+            this.button_4.TabIndex = 3;
+            this.button_4.Text = "4";
+            this.button_4.UseVisualStyleBackColor = true;
+            this.button_4.Click += new System.EventHandler(this.button_4_Click);
+            // 
+            // button_3
+            // 
+            this.button_3.Location = new System.Drawing.Point(284, 19);
+            this.button_3.Name = "button_3";
+            this.button_3.Size = new System.Drawing.Size(107, 85);
+            this.button_3.TabIndex = 2;
+            this.button_3.Text = "3";
+            this.button_3.UseVisualStyleBackColor = true;
+            this.button_3.Click += new System.EventHandler(this.button_3_Click);
+            // 
+            // button_2
+            // 
+            this.button_2.Location = new System.Drawing.Point(145, 19);
+            this.button_2.Name = "button_2";
+            this.button_2.Size = new System.Drawing.Size(107, 85);
+            this.button_2.TabIndex = 1;
+            this.button_2.Text = "2";
+            this.button_2.UseVisualStyleBackColor = true;
+            this.button_2.Click += new System.EventHandler(this.button_2_Click);
+            // 
+            // button_1
+            // 
+            this.button_1.Location = new System.Drawing.Point(6, 19);
+            this.button_1.Name = "button_1";
+            this.button_1.Size = new System.Drawing.Size(107, 85);
+            this.button_1.TabIndex = 0;
+            this.button_1.Text = "1";
+            this.button_1.UseVisualStyleBackColor = true;
+            this.button_1.Click += new System.EventHandler(this.button_1_Click);
+            // 
+            // tictactoe_game
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(427, 390);
+            this.Controls.Add(this.MainGroupBox);
+            this.Name = "tictactoe_game";
+            this.Text = "TicTacToe";
+            this.MainGroupBox.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox MainGroupBox;
+        private System.Windows.Forms.Button button_9;
+        private System.Windows.Forms.Button button_8;
+        private System.Windows.Forms.Button button_7;
+        private System.Windows.Forms.Button button_6;
+        private System.Windows.Forms.Button button_5;
+        private System.Windows.Forms.Button button_4;
+        private System.Windows.Forms.Button button_3;
+        private System.Windows.Forms.Button button_2;
+        private System.Windows.Forms.Button button_1;
+    }
+}
+

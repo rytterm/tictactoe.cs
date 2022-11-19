@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace winForms_TicTacToe
@@ -82,7 +82,9 @@ namespace winForms_TicTacToe
                 {
                     button.Text = "";
                 }
-                MainGroupBox.Text = "Player: X";
+                MainGroupBox.Text = "Player: ";
+                radioButton_X.Show();
+                radioButton_O.Show();
                 return;
             } else
             {
@@ -90,28 +92,74 @@ namespace winForms_TicTacToe
             }
         }
 
+        private void even()
+        {
+            for (int i = 0; i < boardArr.Length; i++)
+            {
+                boardArr[i] = "";
+            }
+
+            DialogResult button_pressed = MessageBox.Show($"NO WINNER", "even", MessageBoxButtons.RetryCancel, MessageBoxIcon.Information);
+            if (button_pressed == DialogResult.Cancel)
+            {
+                Close();
+            }
+            else if (button_pressed == DialogResult.Retry)
+            {
+                foreach (Button button in buttons)
+                {
+                    button.Text = "";
+                }
+                MainGroupBox.Text = "Player: ";
+                radioButton_X.Show();
+                radioButton_O.Show();
+                return;
+            }
+            else
+            {
+                MessageBox.Show("???", "???", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
         // Method to use when any button s pressed
         private void button_Click(Button button, int index)
         {
-            buttons.Add(button); // Add button to the list
-            if (!error(button.Text, "Cant place on taken spot")) // Only continue if no error is found 
+            if (!buttons.Contains(button))
+            {
+                buttons.Add(button); // Add button to the list
+            }
+
+            if (!error(button.Text, "Cant place on taken spot") && MainGroupBox.Text != "Player: ") // Only continue if no error is found 
             {
                 button.Text = MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString();
                 boardArr[index] = button.Text;
-                
+
                 if (hasWon(button.Text))
                 {
                     endOrRetry(button.Text);
                 }
-                
+
                 else if (button.Text == "X")
-                    {
-                        MainGroupBox.Text = "Player: O";
-                    }
+                {
+                    MainGroupBox.Text = "Player: O";
+                }
                 else
                 {
                     MainGroupBox.Text = "Player: X";
                 }
+            }
+            int spot_count = 0;
+            foreach (string spot in boardArr)
+            {
+                if (spot != "")
+                {
+                    spot_count += 1;
+                }
+            }
+            if (spot_count == 9)
+            {
+                even();
             }
         }
 
@@ -119,38 +167,144 @@ namespace winForms_TicTacToe
         private void button_1_Click(object sender, EventArgs e)
         {
             button_Click(button_1, 0);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_2_Click(object sender, EventArgs e)
         {
             button_Click(button_2, 1);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_3_Click(object sender, EventArgs e)
         {
             button_Click(button_3, 2);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_4_Click(object sender, EventArgs e)
         {
             button_Click(button_4, 3);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_5_Click(object sender, EventArgs e)
         {
             button_Click(button_5, 4);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_6_Click(object sender, EventArgs e)
         {
             button_Click(button_6, 5);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_7_Click(object sender, EventArgs e)
         {
             button_Click(button_7, 6);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_8_Click(object sender, EventArgs e)
         {
             button_Click(button_8, 7);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
         private void button_9_Click(object sender, EventArgs e)
         {
             button_Click(button_9, 8);
+            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
         }
+
+        private void radioButton_X_CheckedChanged(object sender, EventArgs e)
+        {
+            MainGroupBox.Text = "Player: X";
+            radioButton_X.Checked = false;
+            radioButton_O.Checked = false;
+            radioButton_X.Hide();
+            radioButton_O.Hide();
+        }
+
+        private void radioButton_O_CheckedChanged(object sender, EventArgs e)
+        {
+            MainGroupBox.Text = "Player: O";
+            radioButton_X.Checked = false;
+            radioButton_O.Checked = false;
+            radioButton_X.Hide();
+            radioButton_O.Hide();
+        }
+
+
+
+        //================================================
+        // EASY AI - Code
+
+        private void easy_GetMove(string player)
+        {
+            Random r = new Random();
+            while (true)
+            {
+                int rand = r.Next(0, boardArr.Length);
+                if (boardArr[rand] == "")
+                {
+                    switch(rand)
+                    {
+                        case 0:
+                            buttons.Add(button_1);
+                            break;
+                        case 1:
+                            buttons.Add(button_2);
+                            break;
+                        case 2:
+                            buttons.Add(button_3);
+                            break;
+                        case 3:
+                            buttons.Add(button_4);
+                            break;
+                        case 4:
+                            buttons.Add(button_5);
+                            break;
+                        case 5:
+                            buttons.Add(button_6);
+                            break;
+                        case 6:
+                            buttons.Add(button_7);
+                            break;
+                        case 7:
+                            buttons.Add(button_8);
+                            break;
+                        case 8:
+                            buttons.Add(button_9);
+                            break;
+                    }
+                    button_Click(buttons[buttons.Count-1], rand);
+                    break;
+                }
+            }
+        }
+
+
+        //================================================
+        // HARD AI - Code
+        /*
+        private int get_move(string player)
+        {
+            for (int i = 0; i < boardArr.Length; i++)
+            {
+                
+                if (boardArr[i] == "")
+                {
+                    boardArr[i] = player;
+                    if (hasWon(player))
+                    {
+                        return i;
+                    } else
+                    {
+
+                    }
+                    
+
+
+                }
+            }
+
+
+        }
+
+        */
     }
 }

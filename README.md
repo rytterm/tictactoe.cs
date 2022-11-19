@@ -1,5 +1,10 @@
 # winForms_TicTacToe
-Attempt at creating a simple tictactoe game
-uisng windows forms and c#.
+A simple player vs player
+tictactoe game using
+c# and windows forms
 
-![Desktop Screenshot 2022 11 18 - 17 28 59 50](https://user-images.githubusercontent.com/70439050/202753997-e76366c7-1561-4179-ae43-33b5539ca42a.png)
+Will make an attempt at
+creating an AI which
+can be played against in time
+
+![Desktop Screenshot 2022 11 19 - 13 24 15 08](https://user-images.githubusercontent.com/70439050/202850705-7481272c-8787-42fe-8897-79c762949a2e.png)

@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace winForms_TicTacToe
@@ -16,7 +9,7 @@ namespace winForms_TicTacToe
     {
         // List which includes all buttons in use
         List<Button> buttons = new List<Button>();
-
+        
         // Board to check for wins
         private string[] boardArr = {"","","","","","","","",""};
 
@@ -89,6 +82,7 @@ namespace winForms_TicTacToe
                 {
                     button.Text = "";
                 }
+                MainGroupBox.Text = "Player: X";
                 return;
             } else
             {

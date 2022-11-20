@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Media;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace winForms_TicTacToe
 {
@@ -13,13 +16,16 @@ namespace winForms_TicTacToe
         // Board to check for wins
         private string[] boardArr = {"","","","","","","","",""};
 
+        string player, ai;
+
+
         public tictactoe_game()
         {
             InitializeComponent();
         }
 
         // Method to cast an error
-        private bool error(string button_name, string error)
+        private Boolean error(string button_name, string error)
         {
             if (button_name == "X" || button_name == "O")
             {
@@ -29,16 +35,14 @@ namespace winForms_TicTacToe
             return false;
         }
 
-        private bool hasWon(string player)
+        private Boolean hasWon(string player)
         {
             /*
-             * ----------
              * 0 | 1 | 2 
-             * ----------
+             * --+---+---
              * 3 | 4 | 5
-             * ----------
+             * --+---+---
              * 6 | 7 | 8
-             * ----------
             */
 
             // For-loop to check for wins
@@ -122,6 +126,19 @@ namespace winForms_TicTacToe
 
         }
 
+        private Boolean isEven()
+        {
+            int spot_count = 0;
+            foreach (string spot in boardArr)
+            {
+                if (spot != "")
+                {
+                    spot_count += 1;
+                }
+            }
+            return spot_count == 9;
+        }
+
         // Method to use when any button s pressed
         private void button_Click(Button button, int index)
         {
@@ -149,15 +166,8 @@ namespace winForms_TicTacToe
                     MainGroupBox.Text = "Player: X";
                 }
             }
-            int spot_count = 0;
-            foreach (string spot in boardArr)
-            {
-                if (spot != "")
-                {
-                    spot_count += 1;
-                }
-            }
-            if (spot_count == 9)
+            
+            if (isEven())
             {
                 even();
             }
@@ -167,7 +177,7 @@ namespace winForms_TicTacToe
         private void button_1_Click(object sender, EventArgs e)
         {
             button_Click(button_1, 0);
-            easy_GetMove(MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString());
+            ai_hard_makeMove();
         }
         private void button_2_Click(object sender, EventArgs e)
         {
@@ -213,6 +223,8 @@ namespace winForms_TicTacToe
         private void radioButton_X_CheckedChanged(object sender, EventArgs e)
         {
             MainGroupBox.Text = "Player: X";
+            player = "X";
+            ai = "O";
             radioButton_X.Checked = false;
             radioButton_O.Checked = false;
             radioButton_X.Hide();
@@ -222,6 +234,8 @@ namespace winForms_TicTacToe
         private void radioButton_O_CheckedChanged(object sender, EventArgs e)
         {
             MainGroupBox.Text = "Player: O";
+            player = "O";
+            ai = "X";
             radioButton_X.Checked = false;
             radioButton_O.Checked = false;
             radioButton_X.Hide();
@@ -276,35 +290,132 @@ namespace winForms_TicTacToe
                 }
             }
         }
-
-
         //================================================
-        // HARD AI - Code
-        /*
-        private int get_move(string player)
+        // HARD AI Code
+
+        // Method to return a value based on who is winning
+        // Return 10 when player is winning (AI)
+        // Return -10 when opponent is winning (Human)
+        // Return 0 if no one is winning
+        private int evaluate()
         {
-            for (int i = 0; i < boardArr.Length; i++)
+            if (hasWon(player))
             {
-                
-                if (boardArr[i] == "")
-                {
-                    boardArr[i] = player;
-                    if (hasWon(player))
-                    {
-                        return i;
-                    } else
-                    {
-
-                    }
-                    
-
-
-                }
+                return 10;
+            } else if (hasWon(ai))
+            {
+                return -10;
             }
-
-
+            return 0;
         }
 
-        */
+        private int minimax(int depth, Boolean isMax)
+        {
+            int score = evaluate();
+
+            if (score == 10 || score == -10 || isEven())
+            {
+                return score;
+            }
+
+            if (isMax)
+            {
+                int best = -1000;
+
+                for (int i = 0; i < boardArr.Length; i++)
+                {
+                    if (boardArr[i] == "")
+                    {
+                        boardArr[i] = ai;
+
+                        best = Math.Min(best, minimax(depth + 1, !isMax));
+
+                        boardArr[i] = "";
+                    }
+                }
+                return best;
+            }
+            else
+            {
+                int best = 1000;
+
+                for (int i = 0; i < boardArr.Length; i++)
+                {
+                    if (boardArr[i] == "")
+                    {
+                        boardArr[i] = player;
+
+                        best = Math.Min(best, minimax(depth + 1, !isMax));
+
+                        boardArr[i] = "";
+                    }
+                }
+                return best;
+            }
+        }
+
+
+        private int findBestMove()
+        {
+            int bestVal = -1000;
+            int pos = -1;
+
+            for (int i = 0; i < boardArr.Length; i++)
+            {
+                if (boardArr[i] == "")
+                {
+                    boardArr[i] = ai;
+
+                    int moveVal = minimax(0, false);
+
+                    boardArr[i] = "";
+
+                    if (moveVal > bestVal)
+                    {
+                        pos = i;
+                        bestVal = moveVal;
+                    }
+                }
+            }
+            return pos;
+        }
+
+        private void ai_hard_makeMove()
+        {
+            int pos = findBestMove();
+            switch (pos)
+            {
+                case 0:
+                    buttons.Add(button_1);
+                    break;
+                case 1:
+                    buttons.Add(button_2);
+                    break;
+                case 2:
+                    buttons.Add(button_3);
+                    break;
+                case 3:
+                    buttons.Add(button_4);
+                    break;
+                case 4:
+                    buttons.Add(button_5);
+                    break;
+                case 5:
+                    buttons.Add(button_6);
+                    break;
+                case 6:
+                    buttons.Add(button_7);
+                    break;
+                case 7:
+                    buttons.Add(button_8);
+                    break;
+                case 8:
+                    buttons.Add(button_9);
+                    break;
+            }
+            buttons[buttons.Count - 1].Text = ai;
+        }
     }
 }
+
+

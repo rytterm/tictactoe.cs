@@ -32,13 +32,11 @@ namespace winForms_TicTacToe
         private bool hasWon(string player)
         {
             /*
-             * ----------
              * 0 | 1 | 2 
-             * ----------
+             * --+---+---
              * 3 | 4 | 5
-             * ----------
+             * --+---+---
              * 6 | 7 | 8
-             * ----------
             */
 
             // For-loop to check for wins

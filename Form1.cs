@@ -16,7 +16,7 @@ namespace winForms_TicTacToe
         
 
         string player, ai;
-        Boolean over;
+        Boolean over = false;
 
 
         public tictactoe_game()
@@ -142,35 +142,34 @@ namespace winForms_TicTacToe
             return true;
         }
 
+        // All methods for the playing buttons
+        
         // Method to use when any button s pressed
         private void button_Click(Button button)
         {
             if (!taken(button) && MainGroupBox.Text != "Player: ") // Only continue if no error is found 
             {
-                button.Text = MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString();
+                button.Text = MainGroupBox.Text[MainGroupBox.Text.Length - 1].ToString(); // Change button text
 
-                if (hasWon(button.Text))
+                if (hasWon(button.Text)) // Checks if anyone won
                 {
                     endOrRetry(button.Text);
-                }
-
-                else if (button.Text == "X")
+                } else if (isEven()) // Checks if its a tie
                 {
-                    MainGroupBox.Text = "Player: O";
-                }
-                else
-                {
-                    MainGroupBox.Text = "Player: X";
-                }
-                if (!over)
+                    even();
+                } else if (!over) 
                 {
                     findBestMove();
                 }
-            }
-            
-            if (isEven())
-            {
-                even();
+
+                if (button.Text == "X")
+                {
+                    MainGroupBox.Text = "Player: O";
+                }
+                else if (button.Text == "O")
+                {
+                    MainGroupBox.Text = "Player: X";
+                }
             }
             over = false;
         }
@@ -212,19 +211,26 @@ namespace winForms_TicTacToe
         {
             button_Click(button_9);
         }
+        
 
+        // Methods for radiobuttons
+
+        // General method which both player radio buttons use
         private void radioButton_Changed()
         {
-            radioButton_X.Checked = false;
+            MainGroupBox.Text = "Player: X";
+            // Uncheck buttons
+            radioButton_X.Checked = false; 
             radioButton_O.Checked = false;
+            // Hide buttons
             radioButton_X.Hide();
             radioButton_O.Hide();
+
             add_buttons();
         }
 
         private void radioButton_X_CheckedChanged(object sender, EventArgs e)
         {
-            MainGroupBox.Text = "Player: X";
             player = "X";
             ai = "O";
             radioButton_Changed();
@@ -232,32 +238,30 @@ namespace winForms_TicTacToe
 
         private void radioButton_O_CheckedChanged(object sender, EventArgs e)
         {
-            MainGroupBox.Text = "Player: O";
             player = "O";
             ai = "X";
             radioButton_Changed();
+            findBestMove();
         }
+        
 
-
-
-        //================================================
-        // EASY AI - Code
-
-        private void easy_GetMove()
+        // Code for a bot which makes random moves on empty spots
+        private void rand_GetMove()
         {
-            Random r = new Random();
-            while (true)
+            Random r = new Random(); // A variable of type Random
+            while (true) // Loop until empty spot is found
             {
                 int rand = r.Next(0, buttons.Count);
                 if (buttons[rand].Text == "")
                 {
-                    buttons[rand].Text = ai;
+                    buttons[rand].Text = ai; // Place if empty
                     MainGroupBox.Text = $"Player: {player}";
                     break;
                 }
             }
         }
-        //================================================
+
+
         // HARD AI Code
 
         // Method to return a value based on who is winning
@@ -282,7 +286,12 @@ namespace winForms_TicTacToe
         {
             int score = evaluate();
 
-            if (score == 10 || score == -10)
+            if (score == 10)
+            {
+                return score;
+            }
+
+            if (score == -10)
             {
                 return score;
             }
@@ -303,9 +312,7 @@ namespace winForms_TicTacToe
                         buttons[i].Text = ai;
 
                         best = Math.Max(best, minimax(depth + 1, !isMax));
-
                         buttons[i].Text = "";
-
                     }
                 }
                 return best;
@@ -319,8 +326,7 @@ namespace winForms_TicTacToe
                     if (buttons[i].Text == "")
                     {
                         buttons[i].Text = player;
-
-                        best = Math.Min(best, minimax(depth + 1, isMax));
+                        best = Math.Min(best, minimax(depth + 1, !isMax));
 
                         buttons[i].Text = "";
                     }
@@ -334,6 +340,7 @@ namespace winForms_TicTacToe
         {
             int bestVal = -1000;
             Button button = new Button();
+
 
             for (int i = 0; i < buttons.Count; i++)
             {
@@ -353,6 +360,14 @@ namespace winForms_TicTacToe
                 }
             }
             button.Text = ai;
+            if (hasWon(ai))
+            {
+                endOrRetry(ai);
+            }
+            else if (isEven())
+            {
+                even();
+            }
             MainGroupBox.Text = $"Player: {player}";
         }
     }

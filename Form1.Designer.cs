@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.MainGroupBox = new System.Windows.Forms.GroupBox();
+            this.radioButton_O = new System.Windows.Forms.RadioButton();
+            this.radioButton_X = new System.Windows.Forms.RadioButton();
             this.button_9 = new System.Windows.Forms.Button();
             this.button_8 = new System.Windows.Forms.Button();
             this.button_7 = new System.Windows.Forms.Button();
@@ -38,8 +40,6 @@
             this.button_3 = new System.Windows.Forms.Button();
             this.button_2 = new System.Windows.Forms.Button();
             this.button_1 = new System.Windows.Forms.Button();
-            this.radioButton_X = new System.Windows.Forms.RadioButton();
-            this.radioButton_O = new System.Windows.Forms.RadioButton();
             this.MainGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +63,30 @@
             this.MainGroupBox.TabIndex = 2;
             this.MainGroupBox.TabStop = false;
             this.MainGroupBox.Text = "Player: ";
+            // 
+            // radioButton_O
+            // 
+            this.radioButton_O.AutoSize = true;
+            this.radioButton_O.Location = new System.Drawing.Point(218, 19);
+            this.radioButton_O.Name = "radioButton_O";
+            this.radioButton_O.Size = new System.Drawing.Size(33, 17);
+            this.radioButton_O.TabIndex = 10;
+            this.radioButton_O.TabStop = true;
+            this.radioButton_O.Text = "O";
+            this.radioButton_O.UseVisualStyleBackColor = true;
+            this.radioButton_O.Click += new System.EventHandler(this.radioButton_O_CheckedChanged);
+            // 
+            // radioButton_X
+            // 
+            this.radioButton_X.AutoSize = true;
+            this.radioButton_X.Location = new System.Drawing.Point(144, 19);
+            this.radioButton_X.Name = "radioButton_X";
+            this.radioButton_X.Size = new System.Drawing.Size(32, 17);
+            this.radioButton_X.TabIndex = 9;
+            this.radioButton_X.TabStop = true;
+            this.radioButton_X.Text = "X";
+            this.radioButton_X.UseVisualStyleBackColor = true;
+            this.radioButton_X.Click += new System.EventHandler(this.radioButton_X_CheckedChanged);
             // 
             // button_9
             // 
@@ -153,30 +177,6 @@
             this.button_1.TabIndex = 0;
             this.button_1.UseVisualStyleBackColor = true;
             this.button_1.Click += new System.EventHandler(this.button_1_Click);
-            // 
-            // radioButton_X
-            // 
-            this.radioButton_X.AutoSize = true;
-            this.radioButton_X.Location = new System.Drawing.Point(144, 19);
-            this.radioButton_X.Name = "radioButton_X";
-            this.radioButton_X.Size = new System.Drawing.Size(32, 17);
-            this.radioButton_X.TabIndex = 9;
-            this.radioButton_X.TabStop = true;
-            this.radioButton_X.Text = "X";
-            this.radioButton_X.UseVisualStyleBackColor = true;
-            this.radioButton_X.CheckedChanged += new System.EventHandler(this.radioButton_X_CheckedChanged);
-            // 
-            // radioButton_O
-            // 
-            this.radioButton_O.AutoSize = true;
-            this.radioButton_O.Location = new System.Drawing.Point(218, 19);
-            this.radioButton_O.Name = "radioButton_O";
-            this.radioButton_O.Size = new System.Drawing.Size(33, 17);
-            this.radioButton_O.TabIndex = 10;
-            this.radioButton_O.TabStop = true;
-            this.radioButton_O.Text = "O";
-            this.radioButton_O.UseVisualStyleBackColor = true;
-            this.radioButton_O.CheckedChanged += new System.EventHandler(this.radioButton_O_CheckedChanged);
             // 
             // tictactoe_game
             // 

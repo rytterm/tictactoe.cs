@@ -132,15 +132,14 @@ namespace winForms_TicTacToe
 
         private Boolean isEven()
         {
-            int spot_count = 0;
-            foreach (Button spot in buttons)
+            foreach (Button button in buttons)
             {
-                if (spot.Text != "")
+                if (button.Text == "")
                 {
-                    spot_count += 1;
+                    return false;
                 }
             }
-            return spot_count == 9;
+            return true;
         }
 
         // Method to use when any button s pressed
@@ -214,11 +213,8 @@ namespace winForms_TicTacToe
             button_Click(button_9);
         }
 
-        private void radioButton_X_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_Changed()
         {
-            MainGroupBox.Text = "Player: X";
-            player = "X";
-            ai = "O";
             radioButton_X.Checked = false;
             radioButton_O.Checked = false;
             radioButton_X.Hide();
@@ -226,16 +222,20 @@ namespace winForms_TicTacToe
             add_buttons();
         }
 
+        private void radioButton_X_CheckedChanged(object sender, EventArgs e)
+        {
+            MainGroupBox.Text = "Player: X";
+            player = "X";
+            ai = "O";
+            radioButton_Changed();
+        }
+
         private void radioButton_O_CheckedChanged(object sender, EventArgs e)
         {
             MainGroupBox.Text = "Player: O";
             player = "O";
             ai = "X";
-            radioButton_X.Checked = false;
-            radioButton_O.Checked = false;
-            radioButton_X.Hide();
-            radioButton_O.Hide();
-            add_buttons();
+            radioButton_Changed();
         }
 
 
@@ -265,35 +265,18 @@ namespace winForms_TicTacToe
         // Return -10 when opponent is winning (Human)
         // Return 0 if no one is winning
 
-        private Boolean willWin(string p)
-        {
-            int row = 0; 
-            int count = 0;
-            // Columns
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    if (buttons[row + j].Text == p)
-                    {
-                        count++;
-                    }
-                    row += 3;
-                }
-            }
-        }
-
         private int evaluate()
         {
             if (hasWon(player))
             {
-                return 10;
+                return -10;
             } else if (hasWon(ai))
             {
-                return -10;
+                return 10;
             }
             return 0;
         }
+
 
         private int minimax(int depth, Boolean isMax)
         {
@@ -304,7 +287,7 @@ namespace winForms_TicTacToe
                 return score;
             }
 
-            if (!isEven())
+            if (isEven())
             {
                 return 0;
             }
@@ -319,9 +302,10 @@ namespace winForms_TicTacToe
                     {
                         buttons[i].Text = ai;
 
-                        best = Math.Min(best, minimax(depth + 1, !isMax));
+                        best = Math.Max(best, minimax(depth + 1, !isMax));
 
                         buttons[i].Text = "";
+
                     }
                 }
                 return best;
@@ -336,7 +320,7 @@ namespace winForms_TicTacToe
                     {
                         buttons[i].Text = player;
 
-                        best = Math.Min(best, minimax(depth + 1, !isMax));
+                        best = Math.Min(best, minimax(depth + 1, isMax));
 
                         buttons[i].Text = "";
                     }
@@ -371,13 +355,6 @@ namespace winForms_TicTacToe
             button.Text = ai;
             MainGroupBox.Text = $"Player: {player}";
         }
-        /*
-        private void ai_hard_makeMove()
-        {
-            Button button = findBestMove();
-            
-        }
-        */
     }
 }
 

@@ -38,16 +38,14 @@
             this.button_3 = new System.Windows.Forms.Button();
             this.button_2 = new System.Windows.Forms.Button();
             this.button_1 = new System.Windows.Forms.Button();
-            this.radioButton_X = new System.Windows.Forms.RadioButton();
-            this.radioButton_O = new System.Windows.Forms.RadioButton();
+            this.ai_thinking = new System.Windows.Forms.Label();
             this.MainGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainGroupBox
             // 
             this.MainGroupBox.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.MainGroupBox.Controls.Add(this.radioButton_O);
-            this.MainGroupBox.Controls.Add(this.radioButton_X);
+            this.MainGroupBox.Controls.Add(this.ai_thinking);
             this.MainGroupBox.Controls.Add(this.button_9);
             this.MainGroupBox.Controls.Add(this.button_8);
             this.MainGroupBox.Controls.Add(this.button_7);
@@ -57,12 +55,14 @@
             this.MainGroupBox.Controls.Add(this.button_3);
             this.MainGroupBox.Controls.Add(this.button_2);
             this.MainGroupBox.Controls.Add(this.button_1);
+            this.MainGroupBox.Font = new System.Drawing.Font("Mongolian Baiti", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainGroupBox.Location = new System.Drawing.Point(12, 12);
             this.MainGroupBox.Name = "MainGroupBox";
             this.MainGroupBox.Size = new System.Drawing.Size(397, 362);
             this.MainGroupBox.TabIndex = 2;
             this.MainGroupBox.TabStop = false;
-            this.MainGroupBox.Text = "Player: ";
+            this.MainGroupBox.Text = "Player: X";
+            this.MainGroupBox.Enter += new System.EventHandler(this.MainGroupBox_Enter);
             // 
             // button_9
             // 
@@ -154,29 +154,16 @@
             this.button_1.UseVisualStyleBackColor = true;
             this.button_1.Click += new System.EventHandler(this.button_1_Click);
             // 
-            // radioButton_X
+            // ai_thinking
             // 
-            this.radioButton_X.AutoSize = true;
-            this.radioButton_X.Location = new System.Drawing.Point(144, 19);
-            this.radioButton_X.Name = "radioButton_X";
-            this.radioButton_X.Size = new System.Drawing.Size(32, 17);
-            this.radioButton_X.TabIndex = 9;
-            this.radioButton_X.TabStop = true;
-            this.radioButton_X.Text = "X";
-            this.radioButton_X.UseVisualStyleBackColor = true;
-            this.radioButton_X.CheckedChanged += new System.EventHandler(this.radioButton_X_CheckedChanged);
-            // 
-            // radioButton_O
-            // 
-            this.radioButton_O.AutoSize = true;
-            this.radioButton_O.Location = new System.Drawing.Point(218, 19);
-            this.radioButton_O.Name = "radioButton_O";
-            this.radioButton_O.Size = new System.Drawing.Size(33, 17);
-            this.radioButton_O.TabIndex = 10;
-            this.radioButton_O.TabStop = true;
-            this.radioButton_O.Text = "O";
-            this.radioButton_O.UseVisualStyleBackColor = true;
-            this.radioButton_O.CheckedChanged += new System.EventHandler(this.radioButton_O_CheckedChanged);
+            this.ai_thinking.AutoSize = true;
+            this.ai_thinking.Location = new System.Drawing.Point(99, 317);
+            this.ai_thinking.Name = "ai_thinking";
+            this.ai_thinking.Size = new System.Drawing.Size(148, 37);
+            this.ai_thinking.TabIndex = 9;
+            this.ai_thinking.Text = "Thinking";
+            this.ai_thinking.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ai_thinking.Visible = false;
             // 
             // tictactoe_game
             // 
@@ -204,8 +191,7 @@
         private System.Windows.Forms.Button button_3;
         private System.Windows.Forms.Button button_2;
         private System.Windows.Forms.Button button_1;
-        private System.Windows.Forms.RadioButton radioButton_O;
-        private System.Windows.Forms.RadioButton radioButton_X;
+        private System.Windows.Forms.Label ai_thinking;
     }
 }
 

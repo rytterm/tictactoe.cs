@@ -8,10 +8,10 @@ namespace winForms_TicTacToe
 {
     public partial class tictactoe_game : Form
     {
-        // List which includes all buttons in use
-        List<Button> buttons = new List<Button>();
+        List<Button> buttons = new List<Button>(); // List which includes all buttons in use
 
         int count = 0; // Counts avaliable spots
+        
         Button ai_btn = new Button(); // The button which the ai is going ot press
 
         System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();

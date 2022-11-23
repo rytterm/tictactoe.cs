@@ -1,4 +1,7 @@
 # winForms_TicTacToe
+First project.
+
+
 A simple player vs aitictactoe game usingc# and windows forms
 
 Note: This version of the game is beatable due to the first move of the ai not being the best one.

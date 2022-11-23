@@ -11,8 +11,8 @@ namespace winForms_TicTacToe
         // List which includes all buttons in use
         List<Button> buttons = new List<Button>();
 
-        int count = 0;
-        Button ai_btn = new Button();
+        int count = 0; // Counts avaliable spots
+        Button ai_btn = new Button(); // The button which the ai is going ot press
 
         System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
 
@@ -20,25 +20,28 @@ namespace winForms_TicTacToe
         {
             InitializeComponent();
         }
-
+        
+        
+        // Method for the timer when the ai is thinking
         private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             if (ai_thinking.Text == "Thinking...")
             {
-                t.Stop();
-                ai_thinking.Visible = false;
-                ai_thinking.Text = "Thinking";
-                ai_btn.Text = "O";
-                if (hasWon(ai_btn.Text))
+                t.Stop(); // Stop the timer
+                ai_thinking.Visible = false; // Make the label invisible
+                ai_thinking.Text = "Thinking"; // Change back the text to it's original state
+                ai_btn.Text = "O"; // Change the button
+                if (hasWon(ai_btn.Text)) // Checks if the ai won
                 {
-                    endOrRetry(ai_btn.Text);
+                    endOrRetry(ai_btn.Text); // Calls for the end method
                 }
                 return;
             }
-            ai_thinking.Text += ".";
+            ai_thinking.Text += "."; // Add a dot to the label
         }
 
 
+        // Add all the buttons to a list
         private void add_buttons()
         {
             buttons.Add(button_1);
@@ -53,7 +56,7 @@ namespace winForms_TicTacToe
         }
 
 
-        // Method to cast an error
+        // Method to cast an error when player clicks already used spot
         private Boolean taken(Button button)
         {
             if (button.Text == "X" || button.Text == "O")
@@ -63,7 +66,9 @@ namespace winForms_TicTacToe
             }
             return false;
         }
-
+        
+        
+        // Method to check for wins
         private Boolean hasWon(string p)
         {
             /*
@@ -88,7 +93,7 @@ namespace winForms_TicTacToe
                 } else if (i == 0 && buttons[i].Text == p && buttons[i+4].Text == p && buttons[i+8].Text == p) // Diagonal line up-down
                 {
                     return true;
-                } else if (i == 2 && buttons[i].Text == p && buttons[i+2].Text == p && buttons[i+4].Text == p) // DIagonal line down-up
+                } else if (i == 2 && buttons[i].Text == p && buttons[i+2].Text == p && buttons[i+4].Text == p) // Diagonal line down-up
                 {
                     return true;
                 }
@@ -118,6 +123,8 @@ namespace winForms_TicTacToe
             }
         }
 
+        
+        // Method to call when it's even
         private void even()
         {
             DialogResult button_pressed = MessageBox.Show($"NO WINNER", "even", MessageBoxButtons.RetryCancel, MessageBoxIcon.Information);
@@ -141,6 +148,8 @@ namespace winForms_TicTacToe
             }
         }
 
+        
+        // Checks if it's a draw
         private Boolean isEven()
         {
             foreach (Button button in buttons)
@@ -153,7 +162,6 @@ namespace winForms_TicTacToe
             return true;
         }
 
-        // All methods for the playing buttons
         
         // Method to use when any button s pressed
         private void button_Click(Button button)
@@ -171,7 +179,7 @@ namespace winForms_TicTacToe
                     even();
                     return;
                 }
-                else
+                else // Ai makes the move
                 {
                     ai_btn = findBestMove();
                     ai_thinking.Visible = true;
@@ -225,14 +233,13 @@ namespace winForms_TicTacToe
         }
 
 
-        // HARD AI Code
+        //------------------ AI Code ------------------
 
         // Method to return a value based on who is winning
         // Return 10 when player is winning (AI)
         // Return -10 when opponent is winning (Human)
         // Return 0 if no one is winning
-
-        private int evaluate()
+        private int evaluate() 
         {
             if (hasWon("X"))
             {
@@ -244,67 +251,67 @@ namespace winForms_TicTacToe
             return 0;
         }
 
-
+        
+        // The minimax algorithm
         private int minimax(int depth, Boolean isMax)
         {
-            int score = evaluate();
-            if (score == 10)
+            int score = evaluate(); // Evaluate the board
+            
+            // Return the score when someone is winning
+            if (score == 10 || score == -10)
             {
                 return score;
             }
 
-            if (score == -10)
-            {
-                return score;
-            }
-
+            // Return 0 when it's a draw
             if (isEven())
             {
                 return 0;
             }
 
-            if (isMax)
+            if (isMax) // Maximizers turn
             {
                 int best = -1000;
 
                 for (int i = 0; i < buttons.Count; i++)
                 {
-                    if (buttons[i].Text == "")
+                    if (buttons[i].Text == "") // If the button is empty try it
                     {
                         buttons[i].Text = "O";
 
-                        best = Math.Max(best, minimax(depth + 1, !isMax));
+                        best = Math.Max(best, minimax(depth + 1, !isMax)); // Recursivly compare button values
 
                         buttons[i].Text = "";
                     }
                 }
-                return best - depth;
+                return best - depth; // Return the value of the move
             }
-            else
+            else // Minimizers turn
             {
                 int best = 1000;
 
                 for (int i = 0; i < buttons.Count; i++)
                 {
-                    if (buttons[i].Text == "")
+                    if (buttons[i].Text == "") // If the button is empty try it
                     {
                         buttons[i].Text = "X";
 
-                        best = Math.Min(best, minimax(depth + 1, !isMax));
+                        best = Math.Min(best, minimax(depth + 1, !isMax)); // Recursivly compare button values
 
                         buttons[i].Text = "";
                     }
                 }
-                return best + depth;
+                return best + depth; // Return the value of the move
             }
         }
 
-
+        // Function to compare moves
         private Button findBestMove()
         {
             int bestVal = -1000;
-            Button button = new Button();
+            Button button = new Button(); // Initiate a button
 
+            // If it's the first move choose one of these
             if (count == 1)
             {
                 if (buttons[4].Text == "")
@@ -316,29 +323,30 @@ namespace winForms_TicTacToe
 
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (buttons[i].Text == "")
+                if (buttons[i].Text == "") // Try the move if the button is empty
                 {
                     buttons[i].Text = "O";
 
-                    int moveVal = minimax(0, false);
+                    int moveVal = minimax(0, false); // Value of current mvoe
 
                     buttons[i].Text = "";
 
-                    if (moveVal > bestVal)
+                    if (moveVal > bestVal) // If value of move is greater than best value then
                     {
-                        bestVal = moveVal;
-                        button = buttons[i];
+                        bestVal = moveVal; // The best value is now equal to the move value 
+                        button = buttons[i]; // Button gets the value of the move
                     }
                 }
             }
-            return button;
+            return button; // Return the best found button
         }
 
+        
+        // When the program is started
         private void MainGroupBox_Enter(object sender, EventArgs e)
         {
-            t.Tick += new EventHandler(TimerEventProcessor);
-            add_buttons();
-            Console.WriteLine(buttons.Count);
+            t.Tick += new EventHandler(TimerEventProcessor); // Add an eventhandler to the timer
+            add_buttons(); // Add all buttons to a list
         }
     }
 }

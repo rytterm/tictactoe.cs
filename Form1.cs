@@ -318,7 +318,7 @@ namespace winForms_TicTacToe
                 {
                     return buttons[4];
                 }
-                return buttons[1];
+                return buttons[0];
             }
 
             for (int i = 0; i < buttons.Count; i++)

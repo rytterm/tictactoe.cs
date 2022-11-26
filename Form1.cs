@@ -31,6 +31,7 @@ namespace winForms_TicTacToe
                 ai_thinking.Visible = false; // Make the label invisible
                 ai_thinking.Text = "Thinking"; // Change back the text to it's original state
                 ai_btn.Text = "O"; // Change the button
+                MainGroupBox.Text = "X";
                 if (hasWon(ai_btn.Text)) // Checks if the ai won
                 {
                     endOrRetry(ai_btn.Text); // Calls for the end method
